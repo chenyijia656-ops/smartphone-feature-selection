@@ -174,102 +174,58 @@ XGBoost是一种基于梯度提升的集成学习方法，通常具有较好的�
 通过比较完整特征集与减少后的特征子集的模型表现，分析特征选择对于模型性能的影响。
 
 ## 项目结构
-本项目采用模块化的数据挖掘项目结构，主要目录如下：
+
+本项目采用常规数据挖掘项目结构，将数据、代码、实验过程、模型结果和最终报告分开管理，便于后续开发、复现实验和展示研究过程。
+
+```text
 smartphone-feature-selection
-
+│
+├── README.md                 # 项目介绍与研究说明
+├── LICENSE                   # 开源许可证
+├── requirements.txt          # Python环境依赖
+│
 ├── data/
-├── notebooks/
-├── src/
+│   ├── raw/                  # 原始数据集
+│   └── processed/            # 清洗和预处理后的数据
+│
+├── notebooks/                # Jupyter Notebook实验分析过程
+│   │
+│   ├── 01_data_exploration.ipynb
+│   ├── 02_data_preprocessing.ipynb
+│   ├── 03_feature_analysis.ipynb
+│   ├── 04_feature_selection.ipynb
+│   ├── 05_model_training.ipynb
+│   └── 06_results_visualization.ipynb
+│
+├── src/                      # 可复用的核心Python代码
+│   │
+│   ├── data_loader.py        # 数据读取
+│   ├── preprocessing.py      # 数据预处理
+│   ├── feature_selection.py  # 特征选择方法
+│   ├── models.py             # 机器学习模型训练
+│   └── evaluation.py         # 模型评价指标
+│
 ├── results/
+│   │
+│   ├── figures/              # 实验可视化结果
+│   │   ├── activity_distribution.png
+│   │   ├── confusion_matrix.png
+│   │   └── feature_importance.png
+│   │
+│   └── model_results.csv     # 模型性能比较结果
+│
 ├── models/
-├── report/
-├── requirements.txt
-└── README.md
-## 文件夹说明
+│   └── best_model.pkl        # 保存表现最好的模型
+│
+└── report/
+    ├── paper.pdf             # 最终项目报告
+    └── presentation.pptx     
+```
 
+其中，`notebooks/` 主要用于记录完整的数据挖掘实验过程，适合展示从数据探索到模型评价的研究步骤；`src/` 用于存放可以重复调用的 Python 代码，使项目结构更加清晰、规范。
 
-### data/
+`results/` 和 `models/` 用于保存实验输出，包括模型性能结果、可视化图片和训练完成的模型；`report/` 用于保存最终报告和展示材料。
 
-用于存放项目所使用的数据。
-
-包括：
-
-- raw/：保存原始数据集，例如 UCI Human Activity Recognition Using Smartphones Dataset；
-- processed/：保存经过清洗、转换和预处理后的数据。
-
-
-### notebooks/
-
-用于保存项目分析过程中的 Jupyter Notebook 文件。
-
-每个 Notebook 对应数据挖掘流程中的一个阶段，例如：
-
-- 数据探索；
-- 数据预处理；
-- 特征分析；
-- 特征选择；
-- 模型训练；
-- 结果可视化。
-
-
-### src/
-
-用于存放可重复使用的 Python 源代码。
-
-主要包括：
-
-- data_loader.py：负责数据读取；
-- preprocessing.py：负责数据预处理；
-- feature_selection.py：负责特征选择方法；
-- models.py：负责机器学习模型训练；
-- evaluation.py：负责模型评价。
-
-
-### results/
-
-用于保存实验产生的结果。
-
-包括：
-
-- 模型性能比较结果；
-- 准确率、精确率等评价指标；
-- 可视化图片，例如混淆矩阵和特征重要性图。
-
-
-### models/
-
-用于保存训练完成后的机器学习模型。
-
-例如：
-
-- Random Forest模型；
-- SVM模型；
-- XGBoost模型。
-
-
-### report/
-
-用于保存项目最终报告和展示材料。
-
-包括：
-
-- 项目报告；
-- 其他项目文档。
-### requirements.txt
-
-记录项目运行所需要的 Python 环境依赖。
-
-主要包括：
-
-- NumPy
-- Pandas（处理数据）
-- Scikit-learn（数学计算）
-- Matplotlib（画图）
-- Seaborn（机器学习）
-- Jupyter（实验）
-- XGBoost
-
-通过该文件可以快速配置相同的实验环境。
 
 ## 实验设计
 本项目将通过多个实验验证研究问题，并比较不同特征数量和机器学习模型对于人类活动识别任务的影响。
