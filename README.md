@@ -282,9 +282,9 @@ Macro-F1 下降不超过2个百分点。
 这些属于拟验证的研究贡献，最终创新性需要通过文献对比和实验结果确定。
 
 ## 项目结构（Project Structure）
-
+```
 smartphone-feature-selection
-
+│
 ├── README.md                     # 项目介绍与研究说明
 ├── LICENSE                       # 开源许可证
 ├── requirements.txt              # Python环境依赖
@@ -324,7 +324,7 @@ smartphone-feature-selection
 └── report/
     ├── paper.pdf                 
     └── presentation.pptx         
-
+```
 ##  参考文献
 
 Anguita, D., Ghio, A., Oneto, L., Parra, X., & Reyes-Ortiz, J. L. (2013). A Public Domain Dataset for Human Activity Recognition Using Smartphones. ESANN.
