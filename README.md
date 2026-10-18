@@ -1,77 +1,72 @@
 # Smartphone Feature Selection for Human Activity Recognition 基于智能手机传感器数据的人类活动识别与特征选择研究
 
-## 项目简介
-本项目围绕基于智能手机传感器数据的人类活动识别（Human Activity Recognition, HAR）问题展开研究。
 
-随着智能手机中加速度计（Accelerometer）、陀螺仪（Gyroscope）等传感器的发展，手机能够持续采集人体运动过程中的传感器信号。这些数据可以用于识别用户当前进行的活动，例如走路、上下楼梯、坐、站立和躺下等。
+## 项目简介（Project Overview）
 
-本项目旨在利用智能手机传感器数据，通过数据挖掘和机器学习方法建立人类活动识别模型，研究不同传感器特征对于活动分类的影响。
+本项目研究基于智能手机传感器数据的人类活动识别（Human Activity Recognition, HAR），重点关注特征选择对分类性能、计算效率和跨用户泛化能力的影响。
 
-同时，本项目重点关注特征选择（Feature Selection）问题，探索在减少特征数量、降低模型复杂度的情况下，是否仍然能够保持较好的分类性能。
+项目采用 UCI Human Activity Recognition Using Smartphones Dataset，使用数据集提供的561维工程特征，对六类日常活动进行分类，包括走路、上楼、下楼、坐、站立和躺下。
 
-## 研究问题
-本项目主要围绕以下两个研究问题展开：
+传统机器学习模型能够有效完成 HAR 分类，但输入特征可能存在冗余。减少特征数量有望降低计算开销，但也可能影响识别性能。
 
-### 研究问题1：智能手机传感器特征能否准确识别人类活动？
+因此，本项目的核心目标是研究：能否通过可学习特征选择减少输入维度，同时维持较好的分类性能并改善计算效率？
 
-智能手机中的加速度计（Accelerometer）和陀螺仪（Gyroscope）能够记录人体运动过程中的变化信息。本研究将利用这些传感器提取的特征，建立机器学习分类模型，判断模型是否能够有效区分不同的人类活动。
+项目将比较传统机器学习模型、互信息特征筛选、可学习特征门控和轻量级 Feature-token Transformer，通过系统实验验证不同方法的实际效果。
 
-本项目关注的六类活动包括：
+## 研究问题（Research Questions）
 
-- Walking（走路）
-- Walking Upstairs（上楼）
-- Walking Downstairs（下楼）
-- Sitting（坐）
-- Standing（站立）
-- Laying（躺）
+### RQ1：不同模型的人体活动识别性能如何？
 
+使用以下模型建立人类活动分类模型，比较它们在完整561维特征下的识别性能：
 
-### 研究问题2：减少特征数量后，模型性能是否仍然可以接受？
+- Support Vector Machine（SVM）
 
-原始数据集包含561个传感器相关特征。虽然更多特征可能包含更多信息，但也可能增加模型训练时间和复杂度。
+- XGBoost
 
-因此，本研究将使用特征选择方法筛选重要特征，并比较：
+- Random Forest
 
-- 使用全部561个特征时的模型性能；
-- 使用减少后的特征子集时的模型性能。
+- Lightweight Feature-token Transformer
 
-通过实验分析特征数量减少对于分类准确率和模型性能的影响。
+### RQ2：特征选择能否在减少特征数量的同时维持分类性能？
 
-## 数据集介绍
-本项目使用的数据集为 **Human Activity Recognition Using Smartphones Dataset（基于智能手机的人类活动识别数据集）**。
+本项目重点比较两种方法：
 
-该数据集由 UCI Machine Learning Repository 提供，是人类活动识别领域中广泛使用的公开数据集。
+Mutual Information（MI）：根据特征与活动标签之间的统计依赖程度进行排序。
 
+Learnable Feature Gating：通过模型训练学习特征权重，并利用稀疏正则化鼓励减少冗余特征。
 
-### 数据来源
+研究不同特征数量下的分类表现，分析特征压缩与分类性能之间的关系。
+
+### RQ3：特征压缩能否改善计算效率？
+
+比较不同特征数量下的推理时间、特征选择耗时、模型文件大小和神经网络参数量。
+
+### RQ4：选择的特征是否稳定，能否推广到不同用户？
+
+分析不同训练样本或用户组合下特征选择结果的一致性，并探索模型对未参与训练用户的泛化能力。
+
+## 数据集介绍（Dataset）
+### 1. 数据来源
+
+数据集：UCI Human Activity Recognition Using Smartphones Dataset
+
+数据来源：UCI Machine Learning Repository
+
+参与者：30人
+
+活动类别：6类
+
+工程特征：561维
+
+传感器：加速度计和陀螺仪
+
+数据划分: 官方训练集与测试集
 
 数据集链接：
 
 https://archive-beta.ics.uci.edu/dataset/240/human%2Bactivity%2Brecognition%2Busing%2Bsmartphones
 
-
-### 数据集特点
-
-该数据集通过智能手机内置传感器采集人体运动数据，主要包括：
-
-- 加速度计（Accelerometer）
-- 陀螺仪（Gyroscope）
-
-
-实验参与者在进行不同活动时，手机传感器会记录人体运动产生的信号，并进一步提取用于机器学习分析的特征。
-
-
-### 数据规模
-
-数据集包含：
-
-- 30名参与者（Subjects）
-- 6种人体活动类别
-- 561个传感器提取特征
-
-
-六种活动类别包括：
-
+### 2. 活动类别
 | 标签 | 活动 |
 | ---- | ---- |
 | Walking | 走路 |
@@ -80,238 +75,260 @@ https://archive-beta.ics.uci.edu/dataset/240/human%2Bactivity%2Brecognition%2Bus
 | Sitting | 坐 |
 | Standing | 站立 |
 | Laying | 躺 |
+### 3. 数据预处理
 
+本项目主要使用数据集提供的561维工程特征，不在主实验中重新提取原始惯性信号特征。
 
-### 数据划分
+预处理步骤包括：
 
-原始数据已经划分为训练集（Training Set）和测试集（Test Set）。
+1. 读取训练集、测试集、活动标签和参与者编号
 
-本项目将在训练集上建立机器学习模型，并使用测试集评估模型对未知活动数据的识别能力。
+2. 检查数据维度、缺失值以及不同活动类别的样本分布
 
-## 研究方法与技术路线
+3. 理解561个工程特征的组成及其传感器来源
 
-本项目基于 UCI Human Activity Recognition Using Smartphones Dataset 展开研究。由于该数据集已经完成传感器信号处理、特征提取以及训练集和测试集划分，因此本项目不进行原始数据预处理，而重点关注特征分析、特征选择以及模型性能比较。
+4. 根据模型需求进行必要的数据标准化，标准化参数仅从训练数据中学习
 
-整体研究流程如下：
-传感器数据
+5. 在训练集内部进行模型验证、特征选择和超参数调优
+
+6. 使用官方测试集对最终确定的模型进行性能评估
+
+数据泄漏控制：
+
+为保证实验结果的可靠性，官方测试集不参与特征筛选、标准化参数拟合或模型调参。
+
+跨用户泛化实验应根据参与者编号进行合理分组，确保验证数据中的用户不出现在对应的训练数据中。
+
+## 研究方法（Methodology）
+### 1. 全特征基线（Baseline）
+
+使用全部561个特征训练以下模型：
+
+SVM：高维分类基线。
+
+XGBoost：梯度提升树模型。
+
+Random Forest：经典树模型参照。
+
+Lightweight Feature-token Transformer：主要深度学习研究方向。
+
+记录 Accuracy、Macro-F1、混淆矩阵和计算效率。通过比较不同模型的分类性能和计算成本，分析完整工程特征对人体活动识别任务的有效性。
+
+### 2. 互信息特征选择（Mutual Information）
+
+互信息（Mutual Information, MI）用于衡量特征与活动标签之间的统计依赖程度。
+
+本项目在训练数据上计算各特征的互信息得分，并根据得分排序，构建不同规模的特征子集。
+
+计划比较以下特征数量：
+
+| 特征子集 | 特征数量 |
+| Top 30 | 30 |
+| Top 60 | 60 |
+| Top 100 |	100 |
+|Top 200 | 200 |
+|Full Features | 561 |
+
+通过比较不同特征数量下的分类结果，评估传统统计特征筛选方法的效果。
+
+### 3. 可学习特征门控（Learnable Feature Gating）
+
+该方法为输入特征设置可学习的门控权重，使模型能够在训练过程中学习不同特征的重要程度，并通过稀疏正则化鼓励减少对冗余特征的依赖。
+
+基本流程：
+
+为每个特征学习门控权重
 
 ↓
 
-数据理解与质量检查
+使用门控权重调整输入特征
 
 ↓
 
-全特征Baseline模型
+通过稀疏正则化鼓励部分特征权重趋近于零
 
 ↓
 
-特征选择
+根据学习到的权重对特征排序
 
 ↓
 
-不同特征数量与传感器组合的对比实验
+选取不同数量的特征子集
 
 ↓
 
-性能、效率、可解释性的综合结论
+重新训练分类模型并评估性能
 
----
+通过与 Mutual Information 方法比较，分析可学习特征选择是否能够发现更有效的特征组合。
 
-### 1. 数据理解与质量检查（Data Understanding）
+( 本研究不预设该方法一定优于传统统计筛选方法，最终结论以实验结果为依据。)
 
-首先对已有数据集进行探索分析，了解数据结构和特征特点，包括：
+### 4. 轻量级 Feature-token Transformer
 
-- 查看训练集和测试集规模；
-- 分析561个传感器特征的组成；
-- 查看不同活动类别的数据分布；
-- 检查数据完整性；
-- 分析加速度计和陀螺仪相关特征。
+构建轻量级 Transformer，研究不同工程特征之间的交互关系。
+
+初步模型结构：
+
+输入特征 → 特征门控 → 特征嵌入 → Transformer Encoder → 分类层 → 六类活动预测
+
+为控制计算成本和过拟合风险，模型计划采用：
+
+较少的 Transformer Encoder 层数
+
+较小的隐藏层维度
+
+Dropout 正则化
+
+轻量化模型结构
+
+需要注意的是，UCI HAR 数据集提供的561维输入为已经提取的工程特征，而非原始时间序列。因此，本项目的 Transformer 主要用于研究不同工程特征之间的交互关系，而不是直接对原始传感器时间序列建模。
+
+### 5. 特征解释与稳定性分析
+
+分析不同方法选出的特征及其一致性，重点关注：
+
+走路、上楼和下楼之间的混淆。
+
+坐与站立之间的混淆。
+
+特征数量减少后，各类别召回率的变化。
+
+不同训练样本下特征排名的稳定性。
+
+特征压缩对跨用户泛化的影响。
+
+## 实验设计（Experiments）
+| 实验 | 方法 |	研究目的 |
+| ---- | ---- | ---- |
+| 实验一 | SVM、XGBoost、Random Forest | 建立全特征基线 |
+| 实验二 | Mutual Information | 评估传统特征筛选效果 |
+| 实验三 | Learnable Feature Gating | 评估可学习特征选择 |
+| 实验四 | Lightweight Transformer |	研究特征交互与压缩的关系 |
+| 实验五 | 特征稳定性与跨用户分析 | 研究稳定性和泛化能力 |
+
+所有主要对比实验应尽可能使用相同的数据划分、特征数量和评价指标。
 
 
-通过数据理解阶段，为后续模型建立和特征选择提供基础。
+## 评价指标（Evaluation Metrics）
+### 1. 分类性能
 
-### 2. 全特征Baseline模型（Baseline Model）
-首先使用数据集提供的全部561个特征建立基础分类模型。
+使用以下指标评价模型的人类活动识别能力：
 
-该实验作为性能基准，作为后续特征选择实验的性能参考：
-- 智能手机传感器特征整体是否能够有效区分不同人体活动；
-- 不同机器学习模型在完整特征空间下的分类能力。
+Accuracy（准确率）
 
-### 3. 特征选择（Feature Selection）
+Macro Precision（宏平均精确率）
 
-针对数据集中大量传感器特征可能存在的信息冗余问题，采用特征选择方法筛选重要特征，并分析不同特征对于活动识别任务的贡献。
-主要方法包括：
+Macro Recall（宏平均召回率）
 
-SelectKBest
-根据统计指标评价每个特征与活动类别之间的相关性，并选择排名靠前的特征。
+Macro F1-score（宏平均F1分数）
 
-Random Forest Feature Importance
-利用随机森林模型计算不同特征的重要程度，分析哪些传感器特征对于活动识别贡献较大。
+Per-class Recall（各类别召回率）
 
-Recursive Feature Elimination (RFE)
-通过递归删除不重要特征，寻找能够保持较好分类性能的特征组合。
+Confusion Matrix（混淆矩阵）
 
-### 4. 对比实验与结果分析（Comparison & Analysis）
+Confusion Matrix
 
-通过比较不同特征组合下的模型表现，分析特征减少对于分类性能、模型效率以及结果解释性的影响。
+重点关注 Macro-F1 和各类别召回率，避免仅根据整体准确率判断模型表现。
 
+### 2. 计算效率
 
-## 项目结构
+保留特征数量
 
-本项目采用常规数据挖掘项目结构，将数据、代码、实验过程、模型结果和最终报告分开管理，便于后续开发、复现实验和展示研究过程。
+特征减少比例
 
-```text
+特征选择耗时
+
+模型训练时间
+
+CPU 推理延迟
+
+模型文件大小
+
+神经网络参数量
+
+所有计算效率实验应尽可能在一致的硬件和软件环境下进行，并明确计时是否包含特征计算、特征选择及其他数据处理步骤。需要区分输入维度减少带来的计算开销变化与实际端到端推理效率提升，避免仅根据特征数量判断模型是否更加高效。
+
+### 3. 候选实验目标
+
+初步目标为：
+
+特征数量减少至少50%。
+
+Accuracy 下降不超过1.5个百分点。
+
+Macro-F1 下降不超过2个百分点。
+
+以上是计划验证的目标，需要在正式实验前与指导老师确认。最终结论以真实实验结果为准。
+
+## 预期研究贡献（Expected Contributions）
+
+1. 特征选择方法比较
+
+在统一实验设置下比较 Mutual Information 与 Learnable Feature Gating，分析传统统计特征选择和可学习特征选择之间的差异。
+
+2. 特征压缩与计算效率分析
+
+研究减少输入特征是否能够在维持分类性能的同时降低模型计算成本，并分析不同特征数量下性能与效率之间的关系。
+
+3. 特征稳定性与跨用户泛化分析
+
+探索不同训练数据和用户组合下特征选择结果的一致性，研究特征压缩对跨用户泛化能力的影响。
+
+4. 类别级分类性能分析
+
+分析不同特征选择方法对于各类人体活动识别结果的影响，特别关注容易产生混淆的活动类别。
+
+这些属于拟验证的研究贡献，最终创新性需要通过文献对比和实验结果确定。
+
+## 项目结构（Project Structure）
 smartphone-feature-selection
 │
-├── README.md                 # 项目介绍与研究说明
-├── LICENSE                   # 开源许可证
-├── requirements.txt          # Python环境依赖
+├── README.md                     # 项目介绍与研究说明
+├── LICENSE                       # 开源许可证
+├── requirements.txt              # Python环境依赖
 │
 ├── data/
-│   ├── raw/                  # 原始数据集
-│   └── processed/            # 清洗和预处理后的数据
+│   ├── raw/                      # UCI HAR原始发布数据集
+│   └── processed/                # 实验中生成的数据或特征子集（按需使用）
 │
-├── notebooks/                # Jupyter Notebook实验分析过程
+├── notebooks/                    # Jupyter Notebook实验过程
 │   │
 │   ├── 01_data_understanding.ipynb
-|   ├── 02_baseline_model.ipynb
-|   ├── 03_feature_analysis.ipynb
-|   ├── 04_feature_selection.ipynb
-|   ├── 05_model_comparison.ipynb
-|   ├── 06_results_visualization.ipynb
+│   ├── 02_baseline_models.ipynb
+│   ├── 03_mutual_information.ipynb
+│   ├── 04_feature_gating.ipynb
+│   ├── 05_feature_transformer.ipynb
+│   └── 06_evaluation_analysis.ipynb
 │
-├── src/                      # 可复用的核心Python代码
+├── src/                          # 可复用的Python核心代码
 │   │
-│   ├── data_loader.py        # 数据读取
-│   ├── preprocessing.py      # 数据预处理
-│   ├── feature_selection.py  # 特征选择方法
-│   ├── models.py             # 机器学习模型训练
-│   └── evaluation.py         # 模型评价指标
+│   ├── data_loader.py            # 数据读取与检查
+│   ├── baseline_models.py        # 传统分类模型
+│   ├── feature_selection.py      # 特征选择方法
+│   ├── feature_gating.py         # 可学习特征门控
+│   ├── feature_transformer.py    # 轻量级Transformer
+│   └── evaluation.py             # 性能与效率评价
 │
 ├── results/
-│   │
-│   ├── figures/              # 实验可视化结果
+│   ├── figures/                  # 实验可视化图片
 │   │   ├── activity_distribution.png
 │   │   ├── confusion_matrix.png
-│   │   └── feature_importance.png
+│   │   └── feature_comparison.png
 │   │
-│   └── model_results.csv     # 模型性能比较结果
+│   └── model_results.csv         # 实验性能对比结果
 │
-├── models/
-│   └── best_model.pkl        # 保存表现最好的模型
+├── models/                       # 训练完成的模型文件
 │
 └── report/
-    ├── paper.pdf             # 最终项目报告
-    └── presentation.pptx     
-```
+    ├── paper.pdf                 
+    └── presentation.pptx         
 
-其中，`notebooks/` 主要用于记录完整的数据挖掘实验过程，适合展示从数据探索到模型评价的研究步骤；`src/` 用于存放可以重复调用的 Python 代码，使项目结构更加清晰、规范。
+##  参考文献
 
-`results/` 和 `models/` 用于保存实验输出，包括模型性能结果、可视化图片和训练完成的模型；`report/` 用于保存最终报告和展示材料。
+Anguita, D., Ghio, A., Oneto, L., Parra, X., & Reyes-Ortiz, J. L. (2013). A Public Domain Dataset for Human Activity Recognition Using Smartphones. ESANN.
 
+An ensemble maximal feature subset selection for smartphone based human activity recognition. (2024). Journal of Network and Computer Applications, 226, 103875. https://doi.org/10.1016/j.jnca.2024.103875
 
-## 实验设计
-本项目将通过多个实验验证研究问题，并比较不同特征数量和机器学习模型对于人类活动识别任务的影响。
+A benchmark for domain adaptation and generalization in smartphone-based human activity recognition. (2024). Scientific Data. https://doi.org/10.1038/s41597-024-03951-4
 
-
-## 实验1：Baseline实验
-
-首先使用数据集提供的全部561个特征进行模型训练。
-
-实验流程：
-561个特征
-
-↓
-
-机器学习模型训练
-
-↓
-
-测试集预测
-
-↓
-
-性能评价
-
-该实验作为基础模型（Baseline），用于评估完整特征情况下模型的分类能力。
-
-
----
-
-## 实验2：特征选择与特征组合优化实验
-
-在完整特征实验基础上，使用特征选择方法减少特征数量。
-
-实验流程：
-561个特征
-
-↓
-
-特征重要性分析
-
-↓
-
-选择重要特征子集
-
-↓
-
-模型训练
-
-↓
-
-性能比较
-
-将比较不同数量特征下的模型效果，例如：
-
-- 完整561个特征；
-- 特征选择后的重要特征子集；
-- 不同数量特征组合下的模型性能
-
-通过实验分析特征减少对于活动识别准确率、模型效率以及特征解释性的影响。
-
----
-
-## 实验3：不同机器学习模型比较
-
-本项目将比较不同机器学习算法在人类活动识别任务中的表现。
-
-比较模型包括：
-
-| 模型 | 说明 |
-| ---- | ---- |
-| SVM | 适用于高维分类问题的经典算法 |
-| Random Forest | 可以进行分类并提供特征重要性 |
-| XGBoost | 基于梯度提升的集成学习算法 |
-
-
----
-
-## 实验评价
-
-不同实验结果将通过以下指标进行比较：
-
-- Accuracy（准确率）
-- Precision（精确率）
-- Recall（召回率）
-- F1-score
-- Confusion Matrix（混淆矩阵）
-
-
-最终分析：
-
-1. 智能手机传感器特征是否能够有效区分不同人体活动；
-2. 特征数量减少后模型性能是否仍然保持在可接受范围；
-3. 哪些特征对于活动识别贡献最大。
-
-## 参考文献
-1. Anguita, D., Ghio, A., Oneto, L., Parra, X., & Reyes-Ortiz, J. L. (2013).
-
-A Public Domain Dataset for Human Activity Recognition Using Smartphones.
-
-ESANN.
-
-2. Kumar et al. (2024).
-
-An ensemble maximal feature subset selection for smartphone based human activity recognition.
-
-Journal of Network and Computer Applications, 226, 103875.
+Vaswani, A., et al. (2017). Attention Is All You Need. Advances in Neural Information Processing Systems.
