@@ -123,11 +123,12 @@ Lightweight Feature-token Transformer：主要深度学习研究方向。
 计划比较以下特征数量：
 
 | 特征子集 | 特征数量 |
+| ---- | ---- |
 | Top 30 | 30 |
 | Top 60 | 60 |
 | Top 100 |	100 |
-|Top 200 | 200 |
-|Full Features | 561 |
+| Top 200 | 200 |
+| Full Features | 561 |
 
 通过比较不同特征数量下的分类结果，评估传统统计特征筛选方法的效果。
 
