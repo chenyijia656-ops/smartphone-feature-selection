@@ -1,0 +1,16 @@
+﻿method,true_class,predicted_class,count
+Common_6,1,5,329
+Common_6,3,5,128
+Common_6,4,5,50
+Common_6,2,5,42
+Common_6,2,1,33
+Common_6_plus_gamma075_feature,1,5,318
+Common_6_plus_gamma075_feature,3,5,120
+Common_6_plus_gamma075_feature,4,5,48
+Common_6_plus_gamma075_feature,3,1,43
+Common_6_plus_gamma075_feature,2,5,32
+Common_6_plus_gamma1_feature,2,1,95
+Common_6_plus_gamma1_feature,3,1,81
+Common_6_plus_gamma1_feature,4,5,53
+Common_6_plus_gamma1_feature,1,2,31
+Common_6_plus_gamma1_feature,5,4,31

@@ -1,0 +1,2 @@
+﻿chosen_config_id,criterion,gamma_grrf,ntree,mtry,mean_cv_macro_f1,note
+nt500_m23,"highest 5-fold mean macro_f1, then accuracy, then fewer features",1.0,500,23,0.7384200787860182,selected on training-set inner GroupKFold; NOT independent test performance
