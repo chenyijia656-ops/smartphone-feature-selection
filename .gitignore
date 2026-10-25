@@ -21,3 +21,23 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+
+# Local environment variables
+.env
+
+# Python build artifacts
+*.egg-info/
+build/
+dist/
