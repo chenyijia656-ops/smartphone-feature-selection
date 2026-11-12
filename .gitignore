@@ -24,6 +24,7 @@ TestResults.xml
 
 # Python virtual environments
 .venv/
+.r-library/
 venv/
 env/
 
@@ -41,3 +42,5 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+
+data/processed/grrf_gamma1_grid_cache/*.rds

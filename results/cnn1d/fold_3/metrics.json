@@ -1,0 +1,18 @@
+{
+  "fold": 3,
+  "accuracy": 0.9978828510938603,
+  "macro_f1": 0.9980261083187659,
+  "best_epoch": 21,
+  "epochs_trained": 28,
+  "device": "cpu",
+  "train_samples": 5935,
+  "n_val_samples": 1417,
+  "recall_by_class": [
+    1.0,
+    1.0,
+    1.0,
+    0.9919028340080972,
+    0.9961538461538462,
+    1.0
+  ]
+}

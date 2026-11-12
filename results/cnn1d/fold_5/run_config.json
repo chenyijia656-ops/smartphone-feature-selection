@@ -1,0 +1,16 @@
+{
+  "base_seed": 42,
+  "fold_seed": 47,
+  "deterministic_algorithms": true,
+  "cudnn_benchmark": false,
+  "cudnn_deterministic": true,
+  "cublas_workspace_config": ":4096:8",
+  "pytorch_version": "2.9.1+cpu",
+  "numpy_version": "2.2.6",
+  "batch_size": 128,
+  "max_epochs": 40,
+  "patience": 7,
+  "learning_rate": 0.001,
+  "split_file": "results\\grrf_cv5_splits.csv",
+  "split_sha256": "e0c005ae67232ecb7dce718607d0b4bb3401a8e4c2cac6394ca46136d8c3ee0b"
+}
