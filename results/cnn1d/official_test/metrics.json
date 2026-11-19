@@ -1,0 +1,11 @@
+{
+  "accuracy": 0.9148286392941974,
+  "macro_precision": 0.9155961319361033,
+  "macro_recall": 0.9166462181372198,
+  "macro_f1": 0.9157928996103893,
+  "test_loss": 0.2305873113987423,
+  "train_samples": 7352,
+  "test_samples": 2947,
+  "epochs": 3,
+  "device": "cpu"
+}
